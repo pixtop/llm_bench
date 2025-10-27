@@ -16,12 +16,11 @@ mkdir -p "$RESULT_DIR"
 # Define scenarios based on the table in ai_bench.md
 # Input lengths and output lengths arrays
 INPUTS=(128 512 2048 4096 8192)
-OUTPUTS=(64 64 64 64 64)
 
 # Loop through each scenario
 for i in "${!INPUTS[@]}"; do
     INPUT_LEN=${INPUTS[$i]}
-    OUTPUT_LEN=${OUTPUTS[$i]}
+    OUTPUT_LEN=64
 
     # Loop through request rates 1 to 12
     for RATE in {1..12}; do
