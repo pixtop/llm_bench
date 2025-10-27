@@ -15,8 +15,8 @@ mkdir -p "$RESULT_DIR"
 
 # Define scenarios based on the table in ai_bench.md
 # Input lengths and output lengths arrays
-INPUTS=(64 128 512 1024 1024 2048 2048 4096 4096 8192)
-OUTPUTS=(64 128 256 256 512 256 512 512 1024 512)
+INPUTS=(128 512 2048 4096 8192)
+OUTPUTS=(64 64 64 64 64)
 
 # Loop through each scenario
 for i in "${!INPUTS[@]}"; do
@@ -39,7 +39,8 @@ for i in "${!INPUTS[@]}"; do
             --num-prompt 100 \
             --metric-percentiles 90 \
             --save-result \
-            --result-dir "$RESULT_DIR"
+            --result-dir "$RESULT_DIR" \
+            --label "${INPUT_LEN}_${OUTPUT_LEN}"
     done
 done
 
