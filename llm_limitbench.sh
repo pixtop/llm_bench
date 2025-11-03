@@ -4,15 +4,16 @@
 export OPENAI_API_KEY=sk-IrR7Bwxtin0haWagUnPrBgq5PurnUz86
 
 # Check if model name and folder name are provided as arguments
-if [ $# -ne 4 ]; then
-    echo "Usage: $0 <max-req> <context_length> <model_name_of_the_llm> <folder_name>"
+if [ $# -ne 5 ]; then
+    echo "Usage: $0 <max-req> <nb-prompt> <context_length> <model_name_of_the_llm> <folder_name>"
     exit 1
 fi
 
 M_CONCU=$1
-INPUT_LEN=$2
-MODEL_NAME=$3
-RESULT_DIR=$4
+NB_PROMPT=$2
+INPUT_LEN=$3
+MODEL_NAME=$4
+RESULT_DIR=$5
 mkdir -p "$RESULT_DIR"
 
 OUTPUT_LEN=64
@@ -27,7 +28,7 @@ vllm bench serve \
   --random-input "$INPUT_LEN" \
   --random-output "$OUTPUT_LEN" \
   --max-concurrency "$M_CONCU" \
-  --num-prompt 10 \
+  --num-prompt "$NB_PROMPT" \
   --metric-percentiles 90 \
   --save-result \
   --result-dir "$RESULT_DIR" \
